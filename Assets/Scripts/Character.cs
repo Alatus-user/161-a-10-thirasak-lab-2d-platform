@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    //absrtact
+    //parameter
     private int health;
     public int Health { get => health; set => health= (value< 0 )? 0: value; }
 
@@ -11,10 +11,20 @@ public abstract class Character : MonoBehaviour
 
     //method
 
+
+    public void Initialize(int startHealth)
+    {
+        health = startHealth;
+        Debug.Log($"{this.name} initial Health: {this.health}");
+
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+    }
     public void TakeDamage(int damage)
     {
         Health =- damage;
-        Debug.Log($"{this.name}Took Damage{damage}  Current Health{Health}");
+        Debug.Log($"{this.name}Took Damage: {damage}  Current Health: {Health}");
+        IsDead();
     }
 
 
