@@ -7,7 +7,7 @@ public class Player : Character
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+         base.Initialize(100);
     }
 
     // Update is called once per frame
@@ -22,14 +22,13 @@ public class Player : Character
         if (enemy != null)
         {
             OnHitWithEnemy(enemy);
-            Debug.Log($"{this.name} hit {enemy.name}");
+            Debug.Log($"{this.name} เน€เธ”เธดเธเธเธ {enemy.name}");
 
         }
     }
 
-    // ฟังก์ชันเมื่อโดนศัตรูโจมตี ลดพลังชีวิตตามความเสียหายที่ศัตรูทำได้
     public void OnHitWithEnemy(Enemy enemy)
     {
-        TakeDamage(enemy.DamageHit);
+        //TakeDamage(enemy.DamageHit);
     }
 }

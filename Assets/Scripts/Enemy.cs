@@ -4,7 +4,7 @@ public abstract class Enemy : Character
 {
 
     //
-    public int DamageHit {  get; set; }
+    [SerializeField]public int DamageHit {  get; set; }
 
 
 

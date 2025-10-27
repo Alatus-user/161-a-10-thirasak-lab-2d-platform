@@ -25,7 +25,7 @@ public class PlayerController : Character
         anim = GetComponent<Animator>();
 
         // เรียกฟังก์ชัน Initialize จาก class พ่อแม่ (Character)
-        base.Initialize(100);
+       
     }
 
     void Update()

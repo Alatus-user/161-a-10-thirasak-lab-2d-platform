@@ -1,56 +1,64 @@
 using UnityEngine;
 
-// §≈“  Crocodile  ◊∫∑Õ¥¡“®“° Enemy
+
 public class Crocodile : Enemy
 {
     [SerializeField]
-    private float atkRange;             // √–¬–°“√‚®¡µ’¢Õß®√–‡¢È
+    private float atkRange = 6.0f;     // ‡∏£‡∏∞‡∏¢‡∏∞‡πÇ‡∏à‡∏°‡∏ï‡∏µ (‡πÄ‡∏Å‡πá‡∏ö‡πÑ‡∏ß‡πâ‡πÄ‡∏ú‡∏∑‡πà‡∏≠‡πÉ‡∏ä‡πâ‡∏ï‡πà‡∏≠‡∏¢‡∏≠‡∏î ‡πÄ‡∏ä‡πà‡∏ô ‡∏£‡∏∞‡∏¢‡∏∞‡∏û‡πà‡∏ô‡∏ô‡πâ‡∏≥)
 
-    public PlayerController player;     // µ—«≈–§√‡ªÈ“À¡“¬∑’Ë®–‚®¡µ’
+    private bool isPlayerEnter = false;  // ‡∏ï‡∏£‡∏ß‡∏à‡∏ß‡πà‡∏≤‡∏Å‡∏≥‡∏•‡∏±‡∏á‡∏ä‡∏ô‡∏ú‡∏π‡πâ‡πÄ‡∏•‡πà‡∏ô‡∏´‡∏£‡∏∑‡∏≠‡πÑ‡∏°‡πà
 
-    // ‡√’¬°§√—Èß·√°‡¡◊ËÕ‡°¡‡√‘Ë¡ (°ËÕπ Update)
+    public PlayerController player;    // ‡∏ï‡∏±‡∏ß‡πÅ‡∏õ‡∏£‡∏≠‡πâ‡∏≤‡∏á‡∏≠‡∏¥‡∏á‡∏ñ‡∏∂‡∏á‡∏ú‡∏π‡πâ‡πÄ‡∏•‡πà‡∏ô
+
     void Start()
     {
-        // ‡√’¬°‡¡∏Õ¥ Initialize ¢Õß§≈“ ·¡Ë æ√ÈÕ¡ Ëßæ≈—ß™’«‘µ 50
-        base.Initialize(50);
+        base.Initialize(50);           // ‡∏û‡∏•‡∏±‡∏á‡∏ä‡∏µ‡∏ß‡∏¥‡∏ï‡πÄ‡∏£‡∏¥‡πà‡∏°‡∏ï‡πâ‡∏ô
+        DamageHit = 10;                // ‡∏Ñ‡∏ß‡∏≤‡∏°‡πÅ‡∏£‡∏á‡πÇ‡∏à‡∏°‡∏ï‡∏µ
 
-        DamageHit = 30;  // µ—Èß§Ë“§«“¡‡ ’¬À“¬∑’Ë®–∑”
-
-        atkRange = 6.0f; // °”Àπ¥√–¬–‚®¡µ’
-
-        // À“µ—« PlayerController µ—«·√°„π´’π
-        player = GameObject.FindFirstObjectByType<PlayerController>();
+   
     }
 
-    // FixedUpdate „™È ”À√—∫ø‘ ‘° Ï Õ—ª‡¥µ„π∑ÿ° Ê ‡ø√¡∑’Ëø‘°´Ï
-    private void FixedUpdate()
+    /// ‡πÄ‡∏£‡∏µ‡∏¢‡∏Å‡∏≠‡∏±‡∏ï‡πÇ‡∏ô‡∏°‡∏±‡∏ï‡∏¥‡πÄ‡∏°‡∏∑‡πà‡∏≠ Crocodile ‡∏ä‡∏ô‡∏Å‡∏±‡∏ö‡∏ß‡∏±‡∏ï‡∏ñ‡∏∏‡∏≠‡∏∑‡πà‡∏ô
+  private void OnTriggerEnter2D(Collider2D playerDetection)
+{
+    if (playerDetection.gameObject.CompareTag("Player"))
     {
-        Behavior();
+        isPlayerEnter = true;
+        player = playerDetection.gameObject.GetComponent<PlayerController>();
+        Debug.Log($"{player.name} ‡πÄ‡∏Ç‡πâ‡∏≤‡∏°‡∏≤‡πÉ‡∏ô‡∏£‡∏∞‡∏¢‡∏∞‡∏Ç‡∏≠‡∏á {this.name}!");
+        Shoot();
+    }
+}
+
+private void OnTriggerExit2D(Collider2D playerDetection)
+{
+    if (playerDetection.gameObject.GetComponent<PlayerController>() != null)
+    {
+        isPlayerEnter = false;
+        Debug.Log($"{player.name} ‡∏´‡∏ô‡∏µ‡∏≠‡∏≠‡∏Å‡∏à‡∏≤‡∏Å‡∏£‡∏∞‡∏¢‡∏∞‡∏Ç‡∏≠‡∏á {this.name} ‡πÅ‡∏•‡πâ‡∏ß!");
+    }
+}
+
+
+    /// ‡πÇ‡∏à‡∏°‡∏ï‡∏µ‡∏ú‡∏π‡πâ‡πÄ‡∏•‡πà‡∏ô‡πÄ‡∏°‡∏∑‡πà‡∏≠‡∏ä‡∏ô‡∏Å‡∏±‡∏ô
+    public void Shoot()
+    {
+        if (player == null) return;
+
+        Debug.Log($"{this.name} ‡πÇ‡∏à‡∏°‡∏ï‡∏µ {player.name}!");
     }
 
-    // °”Àπ¥æƒµ‘°√√¡¢Õß Crocodile „π°“√µ√«® Õ∫√–¬–·≈–¬‘ß
+    /// ‡∏û‡∏§‡∏ï‡∏¥‡∏Å‡∏£‡∏£‡∏°‡∏Ç‡∏≠‡∏á Crocodile (‡πÄ‡∏£‡∏µ‡∏¢‡∏Å‡∏ó‡∏∏‡∏Å‡πÄ‡∏ü‡∏£‡∏°‡∏ü‡∏¥‡∏™‡∏¥‡∏Å‡∏™‡πå)
     public override void Behavior()
     {
-        // À“§Ë“√–¬–ÀË“ß√–À«Ë“ß Crocodile °—∫ Player
-        Vector2 distance = transform.position - player.transform.position;
-
-        // ∂È“ Player Õ¬ŸË„π√–¬–‚®¡µ’
-        if (distance.magnitude <= atkRange)
+        if (isPlayerEnter)
         {
-            Debug.Log($"{player.name} is in the {this.name}'s atk range!");
-            Shoot();
+            // ‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÄ‡∏û‡∏¥‡πà‡∏°‡∏£‡∏∞‡∏ö‡∏ö‡∏Ñ‡∏π‡∏•‡∏î‡∏≤‡∏ß‡∏ô‡πå‡πÇ‡∏à‡∏°‡∏ï‡∏µ ‡∏´‡∏£‡∏∑‡∏≠ Damage over time ‡πÑ‡∏î‡πâ‡∏ó‡∏µ‡πà‡∏ô‡∏µ‡πà
         }
     }
 
-    // ø—ß°Ï™—π¬‘ßÀ‘π„ Ë Player
-    public void Shoot()
+    private void FixedUpdate()
     {
-        Debug.Log($"{this.name} shoots rock to the {player.name}!");
-    }
-
-    // Update ∂Ÿ°‡√’¬°∑ÿ°‡ø√¡ («Ë“ß‰«È„π∑’Ëπ’È)
-    void Update()
-    {
-
+        Behavior();
     }
 }
