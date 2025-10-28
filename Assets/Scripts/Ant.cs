@@ -11,7 +11,7 @@ public class Ant : Enemy
     void Start()
     {
         base.Initialize(20);           // กำหนดพลังชีวิตเริ่มต้นของมด = 20
-        DamageHit = 0;               // ความแรงของการโจมตี = 100
+        DamageHit = 10;               // ความแรงของการโจมตี = 100
 
         velocity = new Vector2(-2.0f, 0.0f);  // ตั้งค่าให้มดเริ่มเดินไปทางซ้าย
     }

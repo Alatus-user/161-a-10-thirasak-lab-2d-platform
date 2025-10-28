@@ -23,7 +23,7 @@ public abstract class Character : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Health -= damage;
-        Debug.Log($"{this.name}Took Damage: {damage}  Current Health: {Health}");
+        Debug.Log($"{this.name} Took Damage: {damage}  Current Health: {Health}");
         if (IsDead()) return;
     }
 

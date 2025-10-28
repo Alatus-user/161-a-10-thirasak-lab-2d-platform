@@ -3,7 +3,6 @@ using UnityEngine;
 public class Player : Character
 {
 
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,13 +21,13 @@ public class Player : Character
         if (enemy != null)
         {
             OnHitWithEnemy(enemy);
-            Debug.Log($"{this.name} เดินชน {enemy.name}");
+            Debug.Log($"{this.name} Collide with  {enemy.name}");
 
         }
     }
 
     public void OnHitWithEnemy(Enemy enemy)
     {
-        //TakeDamage(enemy.DamageHit);
+        TakeDamage(enemy.DamageHit);
     }
 }
