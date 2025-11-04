@@ -4,6 +4,8 @@ public abstract class Character : MonoBehaviour
 {
     //parameter
     private int health;
+    public int currentHealth;
+    public HealthBar healthBar;
     public int Health { get => health; set => health= (value< 0 )? 0: value; }
 
     protected Animator anim;
@@ -23,6 +25,7 @@ public abstract class Character : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Health -= damage;
+        healthBar.SetHealth(health);
         Debug.Log($"{this.name} Took Damage: {damage}  Current Health: {Health}");
         if (IsDead()) return;
     }
@@ -40,7 +43,8 @@ public abstract class Character : MonoBehaviour
     }
     void Start()
     {
-        
+        currentHealth = health;
+        healthBar.SetMaxHealth(Health);
     }
 
     // Update is called once per frame

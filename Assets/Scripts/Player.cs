@@ -7,6 +7,8 @@ public class Player : Character, IShootable
     [field: SerializeField]public float ReloadTime { get; set; }
    [field: SerializeField] public float WaitTime { get; set; }
 
+    public HealthBar healthBar;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

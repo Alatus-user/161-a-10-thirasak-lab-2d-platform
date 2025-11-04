@@ -15,36 +15,38 @@ public class Crocodile : Enemy , IShootable
 
     void Start()
     {
+        player = GameObject.FindFirstObjectByType<Player>();
         base.Initialize(50);           // พลังชีวิตเริ่มต้น
         DamageHit = 10;                // ความแรงโจมตี
 
         //set timer variable for thoring rock
-        WaitTime = 10.0f;
+        WaitTime = 5.0f;
         ReloadTime = 5.0f;
+        
 
    
     }
 
     // Crocodile ชนกับวัตถุอื่น
-private void OnTriggerStay2D(Collider2D playerDetection)
-{
-    if (playerDetection.gameObject.CompareTag("Player"))
-    {
-        isPlayerEnter = true;
-        player = playerDetection.gameObject.GetComponent<Player>();
-        Debug.Log($"{player.name} Has Entered Crocodile Attack Range {this.name}!");
-        Shoot();
-    }
-}
+//private void OnTriggerStay2D(Collider2D playerDetection)
+//{
+//    if (playerDetection.gameObject.CompareTag("Player"))
+//    {
+//        isPlayerEnter = true;
+//        player = playerDetection.gameObject.GetComponent<Player>();
+//        Debug.Log($"{player.name} Has Entered Crocodile Attack Range {this.name}!");
+//        Shoot();
+//    }
+//}
 
-private void OnTriggerExit2D(Collider2D playerDetection)
-{
-    if (playerDetection.gameObject.GetComponent<PlayerController>() != null)
-    {
-        isPlayerEnter = false;
-        Debug.Log($"{player.name} Has Escaped Crocodile Attack Range {this.name}!");
-    }
-}
+//private void OnTriggerExit2D(Collider2D playerDetection)
+//{
+//    if (playerDetection.gameObject.GetComponent<Player>() != null)
+//    {
+//        isPlayerEnter = false;
+//        Debug.Log($"{player.name} Has Escaped Crocodile Attack Range {this.name}!");
+//    }
+//}
 
 
     /// โจมตีผู้เล่นเมื่อชนกัน
@@ -63,16 +65,18 @@ private void OnTriggerExit2D(Collider2D playerDetection)
     /// พฤติกรรมของ Crocodile (เรียกทุกเฟรมฟิสิกส์)
     public override void Behavior()
     {
-        /*Vector2 distance = transform.position - player.transform.position;
+        //find distance between Croccodile and Player
+        Vector2 distance = transform.position - player.transform.position;
         if (distance.magnitude <= atkRange)
         {
             Debug.Log($"{player.name} is in the {this.name}'s atk range!");
             Shoot();
-        }*/
+        }
     }
 
     private void FixedUpdate()
     {
         WaitTime += Time.fixedDeltaTime;
+        Behavior();
     }
 }
